@@ -105,11 +105,21 @@ class(mtcars$gear)
 unique(mtcars$gear)
 summary(mtcars$gear)
 
-
+tabela_gear <- data.frame(mtcars$gear) %>%
+  count(mtcars.gear) %>%
+  rename(n_forward_gears = mtcars.gear, count = n) %>%
+  mutate(n_forward_gears = as.character(n_forward_gears)) %>%
+  add_row(n_forward_gears = 'TOTAL', count = sum(.$count))
 
 class(mtcars$carb)
 unique(mtcars$carb)
 summary(mtcars$carb)
+
+tabela_carb <- data.frame(mtcars$carb) %>%
+  count(mtcars.carb) %>%
+  rename(num_carb = mtcars.carb, count = n) %>%
+  mutate(num_carb = as.character(num_carb)) %>%
+  add_row(num_carb = 'TOTAL', count = sum(.$count))
 
 summary(mtcars[, c('cyl', 'hp', 'gear', 'carb')])
 
