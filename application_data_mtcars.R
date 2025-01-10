@@ -54,7 +54,7 @@ tbl_vs_am_percent <- tabela_vs_am %>%
   mutate(percent = round(count/sum(count),5)*100) %>%
   add_row(engine = 'TOTAL', count = sum(.$count), percent = floor(sum(.$percent)))
 
-# V.numerica.disc: cyl, hp, gear e carb.
+# V.numerica.discretas: cyl, hp, gear e carb.
 class(mtcars$cyl)
 unique(mtcars$cyl)
 summary(mtcars$cyl)
@@ -88,9 +88,10 @@ limit_inter_hp
 freq_hp <- cut(mtcars$hp, breaks = limit_inter_hp, right = FALSE)
 table(freq_hp)
 ### 2º Tabela Histigrama
-tbl_histograma_hp <- as.data.frame(table(limit_inter_hp = freq_hp)) %>%
+tbl_histograma_hp <- as.data.frame(table(freq_hp)) %>%
+  rename(horsepower = freq_hp) %>%
   mutate(freq_rel_hp = round(Freq/sum(Freq),4)) %>%
-  add_row(limit_inter_hp = 'TOTAL', Freq = sum(.$Freq), freq_rel_hp = sum(.$freq_rel_hp))
+  add_row(horsepower = 'TOTAL', Freq = sum(.$Freq), freq_rel_hp = sum(.$freq_rel_hp))
 
 ## Frequência forward gears = gear
 class(mtcars$gear)
