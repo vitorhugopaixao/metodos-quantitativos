@@ -54,28 +54,20 @@ tbl_vs_am_percent <- tabela_vs_am %>%
   mutate(percent = round(count/sum(count),5)*100) %>%
   add_row(engine = 'TOTAL', count = sum(.$count), percent = floor(sum(.$percent)))
 
-### V.numerica.disc: cyl, hp, gear e carb.
+# V.numerica.disc: cyl, hp, gear e carb.
 class(mtcars$cyl)
 unique(mtcars$cyl)
 summary(mtcars$cyl)
-# Tabela distribuição de frequência cyl
-## 1º Rol dados
-sort(mtcars$cyl)
-## 2º Amplitude total
-amplitude_total_cyl <- max(mtcars$cyl) - min(mtcars$cyl)
-## 3º nº de classes método Sturges
-n.classes_cyl <- nclass.Sturges(mtcars$cyl)
-### 4º Tamanho classes
-t.classes_cyl <- ceiling(amplitude_total_cyl/n.classes_cyl)
-#### 5º Limites Intervalo de classes
-limt_classes_cyl <- seq(min(mtcars$cyl), min(mtcars$cyl) + (n.classes_cyl * t.classes_cyl), by = t.classes_cyl)
-limt_classes_cyl
-## Histograma
-### 1º Frequencia c/ intervalos
-freq_cyl <- cut(mtcars$cyl, breaks = limt_classes_cyl, right = FALSE) 
-### 2º Tabela Histigrama
-tabela_histo_cyl <- as.data.frame(table(freq_cyl))
 
+## Frequência cylinders = cyl
+tabela_cylinders <- data.frame(mtcars$cyl) %>%
+  rename(cylinders = mtcars.cyl) %>%
+  count(cylinders) %>% 
+  rename(count = n) %>%
+  mutate(cylinders = as.character(cylinders)) %>%
+  add_row(cylinders = 'TOTAL', count = sum(.$count))
+
+## Frequência horsepower = hp
 class(mtcars$hp)
 unique(mtcars$hp)
 summary(mtcars$hp)
@@ -100,7 +92,7 @@ tbl_histograma_hp <- as.data.frame(table(limit_inter_hp = freq_hp)) %>%
   mutate(freq_rel_hp = round(Freq/sum(Freq),4)) %>%
   add_row(limit_inter_hp = 'TOTAL', Freq = sum(.$Freq), freq_rel_hp = sum(.$freq_rel_hp))
 
-
+## Frequência forward gears = gear
 class(mtcars$gear)
 unique(mtcars$gear)
 summary(mtcars$gear)
@@ -111,6 +103,7 @@ tabela_gear <- data.frame(mtcars$gear) %>%
   mutate(n_forward_gears = as.character(n_forward_gears)) %>%
   add_row(n_forward_gears = 'TOTAL', count = sum(.$count))
 
+## Frequência carburetors = carb
 class(mtcars$carb)
 unique(mtcars$carb)
 summary(mtcars$carb)
