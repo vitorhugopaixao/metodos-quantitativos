@@ -1,5 +1,6 @@
 # Bibliotecas
 library(tidyverse)
+library(ggplot2)
 # Database
 ## Motor Trend Car Road Tests
 ?mtcars
@@ -17,6 +18,16 @@ unique(mtcars$vs)
 mtcars$vs <- factor(mtcars$vs, 
                   levels = c(0,1),
                   labels = c('v-shaped','straight'))
+
+ggplot(mtcars$vs, aes(x = Categoria, y = Valores, fill = Categoria)) +
+  geom_bar(stat = "identity", color = "black") +
+  labs(
+    title = "Gráfico de Barras com ggplot2",
+    x = "Categorias",
+    y = "Valores"
+  ) +
+  theme_minimal()
+
 summary(mtcars$vs)
 
 class(mtcars$am)
