@@ -29,7 +29,7 @@ autor: V. Paixao
 
 ```{r}
 library(tidyverse) # coleção de pacotes para data science.
-library(openintro) # conjunto de dados open intro.
+library(openintro) # carregando conjunto de dados open intro.
 
 ```
 
@@ -49,7 +49,7 @@ library(openintro) # conjunto de dados open intro.
 # bases de dados do pct openintro.
 ## primerio data frame: 
 high_school_beyond <- hsb2 # atribuindo o df ao objeto. high_school_beyond  
-glimpse(high_school_beyond) # inspeciona df: nº linha x col, var e tipo dado.
+glimpse(high_school_beyond) # inspeciona df: nº linha x col, var e tipo dados.
 str(high_school_beyond) # inspeciona df: nº linha x col, var, tipo dado e levels.
 
 ## segundo data frame:
@@ -90,13 +90,13 @@ summary(high_school_beyond$socst)
 glimpse(high_school_beyond$id)
 high_school_beyond %>% 
   select(id) %>%
-  arrange(id)
+  arrange(id) # ordena o df conf. os valores de uma coluna.
 
 ## Var. Quali. Nominais: null
 
 #Var. Quali. Categóricas Nominal: gender, race, ses, schtyp, prog.  
 glimpse(high_school_beyond$gender)
-unique(high_school_beyond$gender)
+unique(high_school_beyond$gender) 
 
 glimpse(high_school_beyond$race)
 unique(high_school_beyond$race)
@@ -142,11 +142,10 @@ summary(email_50$line_breaks)
 glimpse(email_50$exclaim_mess)
 summary(email_50$exclaim_mess)
 
-
-## var. Quant. Continua: num_char (in thousands)
+## var. Quant. Continuas: num_char (in thousands)
 glimpse(email_50$num_char)
 summary(email_50$num_char)
-email_50$num_char
+email_50$num_char # The number of characters in the email, in thousands.
 
 ##Var. Quali. Ordinais: time, number.
 glimpse(email_50$time)
@@ -159,7 +158,7 @@ unique(email_50$number)
 
 ##Var. Quali. Categorica Nominal: spam, to_multiple, from, sent_email, winner, inherit, viagra, format, re_subj, exclaim_subj e urgent_subj.
 
-glimpse(email_50$spam) #Indicator for whether the email was spam. "0" = não tem spam, "1" = Sim, tem spam.
+glimpse(email_50$spam) #Indicator for whether the email was spam. "0" = não tem spam, "1" = Sim, tem spam. 
 
 glimpse(email_50$to_multiple) #Indicator for whether the email was addressed to more than one recipient.
 
@@ -175,7 +174,7 @@ unique(email_50 $inherit)
 glimpse(email_50$viagra) #The number of times “viagra” appeared in the email.
 unique(email_50$viagra)
 
-glimpse(email_50$format) # Indicates whether the email was written using HTML (e.g. may have included bolding or active links). Armazenado internamente (0 = 1 e 1 = 2).
+glimpse(email_50$format) # Indicates whether the email was written using HTML (e.g. may have included bolding or active links). 
 
 glimpse(email_50$re_subj) # Whether the subject started with “Re:”, “RE:”, “re:”, or “rE:”.
 
@@ -208,7 +207,7 @@ h_S_public %>%
 
 glimpse(email_50$number)
 unique(email_50$number)
-email50_big <- email50 %>%
+email50_big <- email_50 %>%
   filter(number == "big")
 glimpse(email50_big)
 ```
@@ -253,6 +252,10 @@ email_50 %>%
 ```{r}
 glimpse(high_school_beyond)
 summary(high_school_beyond)
+# Em summary:
+## chr: nº de linhas;
+## int: summary e
+## fct: levels.
 
 #library(ggplot2) # faz parte do tidyverse
 # Gráfico Bivariado (science, math)
@@ -278,4 +281,204 @@ ggplot(data = email_50,
   geom_point() + 
   ggtitle("Email with exclaim_mess and num_char by spam.")
   
+```
+
+# Lição 2: Tipos de Estudo:
+
+## **Objetivos:**
+
+-   Definir estudos experimentais e observacionais;
+
+-   Discuta o escopo da grade de inferência 2x2 com atribuição aleatorias e amostragem aleatórias;
+
+-   Defina o paradoxo de Simpson em um caso de 2 cat var.
+
+    -   Use R para fazer uma tabela de contingência
+
+    -   `group_by()`terceira variável e faça a tabela novamente para demonstrar o paradoxo de Simpson
+
+### Estudo Observacional e Experimental:
+
+-   Estudo Observacional: Estabelece uma associação entre variável resposta e explicativa. Não interfere em como os dados surgem.
+
+-   Experimento: Estabelece uma conexão de causa e efeito entre a variável resposta e a explicativa.
+
+    -   Grupo de Tratamento e Grupo de Controle.
+
+    -   São atribuídas aos grupos de forma aleatória.
+
+### Pacotes utilizados:
+
+```{r}
+library(gapminder)
+```
+
+### Bases de Dados do Openintro(gapminder):
+
+Trecho dos dados do Gapminder sobre expectativa de vida, PIB per capita e população por país.
+
+```{r}
+# Base de Dados do pct openintro.
+head(gapminder)
+str(gapminder)
+```
+
+### Amostragem Aleatória e Atribuição Aleatória:
+
+-   Amostragem Aleatória: Sujeitos selecionados aleatoriamente da população de interesse.
+
+    -   Amostra representativa da população
+
+    -   Generalização sobre a população
+
+-   Atribuição Aleatória:
+
+    -   Sujeitos atribuídos de forma aleatória aos grupos tratamento e controle
+
+        -   Cenário experimental
+
+        -   Conclusões causais
+
+### Paradoxo de Simpson:
+
+-   Paradoxo de Simposon: Não considerar uma variável importante como tal para o relacionamento entre variáveis.
+
+    -   Uma outra variável explicativa pode mudar a aparente relação entre outras var. expli. e a variável resposta.
+
+-   Variável Resposta: Afetada
+
+-   Variável Explicativa: Afeta
+
+```{r}
+glimpse(ucb_admit)
+unique(ucb_admit$dep)
+unique(ucb_admit$gender)
+unique(ucb_admit$admit)
+
+# Dados de Admissao Berkeley
+ucb_admit %>%
+  count(gender, admit)
+## Ou (São diferentes para outras situacoes)
+ucb_admit %>%
+  group_by(gender) %>%
+  count(admit) 
+
+# Homens e Mulheres Admitidos.
+ucb_admit %>%
+  group_by(gender) %>%
+  count(admit) %>%
+  filter(admit == "admitted")
+
+# Proporcao, em cada genero, de Homens e Mulheres. (versao do Livro)
+ucb_admit %>%
+  group_by(gender) %>%
+  count(admit) %>%
+  mutate(prop_h_m = n/sum(n))
+
+## Proporcao Homens e Mulheres em Relacao ao Total. (Minha Versao)
+ucb_admit %>%
+  count(admit, gender) %>% # Usar group_by dificultaria a proporcao total.
+  mutate(prop_h_m_admitidos = n/sum(n))
+  
+# Proporcao Homens e Mulheres Admitidos em Relacao ao Total.
+ucb_admit %>%
+  count(gender, admit) %>%
+  mutate(prop_h_m_admit = n/sum(n)) %>%
+  filter(admit == "admitted")
+
+## Proporcao Homens Admitidos em Relacao ao Total de Admitidos.
+ucb_admit %>% 
+  count(gender, admit) %>%
+  mutate(prop = n/sum(n)) %>%
+  filter(admit == "admitted", gender == "male")
+
+
+# Proporcao Homens Admitidos em cada Departamento.(Minha Versão)
+ucb_admit %>%
+  count(dept, gender, admit) %>%
+  count(admit) %>%
+  mutate(prop_h_admit_dep = n/sum(n)) %>% 
+  filter(admit == "admitted")
+
+
+# Proporcao Homens Admitidos em cada Departamento.(Versão do Livro)
+ucb_admit %>%
+  group_by(dept, gender) %>%
+  count(admit) %>%
+  mutate(prop_h_admit_dep = n/sum(n)) %>%
+  filter(gender == "male", admit == "admitted")
+
+## Proporcao Homens Admitidos por Departamento em Relacao ao Total de Admitidos.(Minha Versao)
+ucb_admit %>%
+  count(dept, gender, admit) %>%
+  mutate(prop_h_admit_dep = n/sum(n)) %>%
+  filter(gender == "male", admit == "admitted")
+
+# 
+
+
+
+
+# __________________________________________________________________________
+%>%
+  group_by()
+    mutate(prop = n/sum(n)) %>%
+  filter(admit == "admitted")
+
+
+
+
+
+##################1º Proporcao por generos:
+ucb_admit %>%
+  count(gender) %>%
+  mutate(prop = n /sum(n))
+
+#2º Proporcao de admissao/rejeicao em cada genero.
+ucb_admit %>%
+  group_by(gender) %>% 
+  count(admit) %>%
+  mutate(prop = n /sum(n))
+
+# Proporcao de Admitidos em cada Genero.
+## Essa é a proposta do livro, mas discordo. O ideal seria o tópico seguinte
+ucb_admit %>%
+  group_by(gender) %>%
+  count(admit) %>% #conta por admissao. Importante para a proporção.
+  mutate(prop = n / sum(n)) %>%
+  filter(admit == "admitted")
+
+# Proporcao de Admitidos e Rejeitados por Genero. 
+ucb_admit %>%
+group_by(admit)%>%
+  count(gender) %>%
+  mutate(prop = n / sum(n)) %>%
+  filter()
+
+# 
+ucb_admit %>% 
+  count(dept, gender, admit) %>%
+  group_by(dept, admit) %>%
+    mutate(prop = n/sum(n)) 
+
+%>% 
+  filter(gender =="male", admit == "admitted") 
+
+# Homens admitidos por departamento.
+unique(ucb_admit$admit)
+ucb_admit %>%
+  group_by(dept, gender) %>%
+  count(admit) %>% 
+  mutate(prop = n/sum(n)) 
+
+%>%
+    filter(gender == "male", admit == "admitted")  
+
+# Taxa de admissão por departamento
+ucb_admit %>%
+  group_by(dept, gender)%>%
+  count(admit) %>%
+  mutate(prop = n / sum(n)) %>% 
+  filter(admit == "admitted") 
+
 ```
