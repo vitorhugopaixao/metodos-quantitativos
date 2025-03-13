@@ -369,18 +369,18 @@ ucb_admit %>%
   count(admit) %>%
   filter(admit == "admitted")
 
-# Proporcao, em cada genero, de Homens e Mulheres. (versao do Livro)
+# Proporcao admitidos rejeitados por genero. (versao do Livro)
 ucb_admit %>%
   group_by(gender) %>%
   count(admit) %>%
   mutate(prop_h_m = n/sum(n))
 
-## Proporcao Homens e Mulheres em Relacao ao Total. (Minha Versao)
+## Proporcao admitidos e rejeitados em Relacao ao Total. (Minha Versao)
 ucb_admit %>%
   count(admit, gender) %>% # Usar group_by dificultaria a proporcao total.
   mutate(prop_h_m_admitidos = n/sum(n))
   
-# Proporcao Homens e Mulheres Admitidos em Relacao ao Total.
+# Proporcao Genero Admitidos em Relacao ao Total.
 ucb_admit %>%
   count(gender, admit) %>%
   mutate(prop_h_m_admit = n/sum(n)) %>%
@@ -392,14 +392,11 @@ ucb_admit %>%
   mutate(prop = n/sum(n)) %>%
   filter(admit == "admitted", gender == "male")
 
-
-# Proporcao Homens Admitidos em cada Departamento.(Minha Versão)
+# Proporcao Homens Admitidos em cada Departamento em relacao ao total.(Minha Versão)
 ucb_admit %>%
   count(dept, gender, admit) %>%
-  count(admit) %>%
-  mutate(prop_h_admit_dep = n/sum(n)) %>% 
-  filter(admit == "admitted")
-
+  mutate(prop_h_admit_dep = n/sum(n)) %>%
+  filter(gender == "male", admit == "admitted")
 
 # Proporcao Homens Admitidos em cada Departamento.(Versão do Livro)
 ucb_admit %>%
