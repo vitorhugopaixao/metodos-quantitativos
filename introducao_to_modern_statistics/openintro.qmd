@@ -283,9 +283,9 @@ ggplot(data = email_50,
   
 ```
 
-# Lição 2: Tipos de Estudo:
+## Lição 2: Tipos de Estudo:
 
-## **Objetivos:**
+### **Objetivos:**
 
 -   Definir estudos experimentais e observacionais;
 
@@ -423,4 +423,45 @@ ucb_admit %>%
 ucb_admit %>%
   count(dept) %>%
   arrange(desc(n))
+```
+
+## Lição 3: Estratégia de Amostragem e Desenho Experimental
+
+### Amostragem:
+
+```{r}
+# Carregando Pacotes:
+library(usdata) #pacote (pct) da base de dados
+library(tidyverse) #pct amostragem e agrupamento
+
+```
+
+Inspecionar dataframe:
+
+```{r}
+glimpse(county)
+str(county)   
+
+levels(county$state)
+```
+
+Limpar dataframe:
+
+```{r}
+# retirando "District of Columbia".
+county_noDC <- county %>%
+  filter(state != "District of Columbia") %>%
+  droplevels()
+
+unique(county_noDC$state)
+```
+
+Amostragem Aleatória Simples:
+
+```{r}
+# Amostragem Aleatóri Simples de 150 condados:
+county_noDC_srs150 <- county_noDC %>%
+  slice_sample(n=150) # Slice = Fatiar
+
+glimpse(county_noDC_srs150)
 ```
