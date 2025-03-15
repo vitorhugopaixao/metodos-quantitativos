@@ -392,90 +392,35 @@ ucb_admit %>%
   mutate(prop = n/sum(n)) %>%
   filter(admit == "admitted", gender == "male")
 
-# Proporcao Homens Admitidos em cada Departamento em relacao ao total.(Minha Versão)
-ucb_admit %>%
-  count(dept, gender, admit) %>%
-  mutate(prop_h_admit_dep = n/sum(n)) %>%
-  filter(gender == "male", admit == "admitted")
-
-# Proporcao Homens Admitidos em cada Departamento.(Versão do Livro)
+# Proporcao Admitidos por Departamento
+## Por Genero (Versao Livro)
 ucb_admit %>%
   group_by(dept, gender) %>%
   count(admit) %>%
   mutate(prop_h_admit_dep = n/sum(n)) %>%
-  filter(gender == "male", admit == "admitted")
-
-## Proporcao Homens Admitidos por Departamento em Relacao ao Total de Admitidos.(Minha Versao)
+  filter(admit == "admitted") 
+  
+## Em Relacao ao Total (Minha Versao)
 ucb_admit %>%
   count(dept, gender, admit) %>%
   mutate(prop_h_admit_dep = n/sum(n)) %>%
-  filter(gender == "male", admit == "admitted")
-
-# 
-
-
-
-
-# __________________________________________________________________________
-%>%
-  group_by()
-    mutate(prop = n/sum(n)) %>%
-  filter(admit == "admitted")
-
-
-
-
-
-##################1º Proporcao por generos:
-ucb_admit %>%
-  count(gender) %>%
-  mutate(prop = n /sum(n))
-
-#2º Proporcao de admissao/rejeicao em cada genero.
-ucb_admit %>%
-  group_by(gender) %>% 
-  count(admit) %>%
-  mutate(prop = n /sum(n))
-
-# Proporcao de Admitidos em cada Genero.
-## Essa é a proposta do livro, mas discordo. O ideal seria o tópico seguinte
-ucb_admit %>%
-  group_by(gender) %>%
-  count(admit) %>% #conta por admissao. Importante para a proporção.
-  mutate(prop = n / sum(n)) %>%
-  filter(admit == "admitted")
-
-# Proporcao de Admitidos e Rejeitados por Genero. 
-ucb_admit %>%
-group_by(admit)%>%
-  count(gender) %>%
-  mutate(prop = n / sum(n)) %>%
-  filter()
-
-# 
-ucb_admit %>% 
-  count(dept, gender, admit) %>%
-  group_by(dept, admit) %>%
-    mutate(prop = n/sum(n)) 
-
-%>% 
-  filter(gender =="male", admit == "admitted") 
-
-# Homens admitidos por departamento.
-unique(ucb_admit$admit)
-ucb_admit %>%
-  group_by(dept, gender) %>%
-  count(admit) %>% 
-  mutate(prop = n/sum(n)) 
-
-%>%
-    filter(gender == "male", admit == "admitted")  
-
-# Taxa de admissão por departamento
-ucb_admit %>%
-  group_by(dept, gender)%>%
-  count(admit) %>%
-  mutate(prop = n / sum(n)) %>% 
   filter(admit == "admitted") 
 
+# Proporcao, por genero, de Homens Admitidos em cada Departamento.(Versão do Livro)
+ucb_admit %>%
+  group_by(dept, gender) %>%
+  count(admit) %>%
+  mutate(prop_h_admit_dep = n/sum(n)) %>%
+  filter(gender == "male", admit == "admitted")
+
+## Proporcao Homens Admitidos em cada Departamento em Relacao ao Total.(Minha Versão)
+ucb_admit %>%
+  count(dept, gender, admit) %>%
+  mutate(prop_h_admit_dep = n/sum(n)) %>%
+  filter(gender == "male", admit == "admitted")
+
+### Departamentos mais Desejados:
+ucb_admit %>%
+  count(dept) %>%
+  arrange(desc(n))
 ```
