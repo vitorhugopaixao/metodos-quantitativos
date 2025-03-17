@@ -456,7 +456,7 @@ county_noDC <- county %>%
 unique(county_noDC$state)
 ```
 
-Amostragem Aleatória Simples:
+**Amostragem Aleatória Simples:**
 
 ```{r}
 # Amostragem Aleatóri Simples de 150 condados:
@@ -464,6 +464,24 @@ county_noDC_srs150 <- county_noDC %>%
   slice_sample(n = 150) # Slice = Fatiar
 
 glimpse(county_noDC_srs150)
+```
+
+**Exercício: Amostra Aleatoria Simples.**
+
+```{r}
+# data frame do exercício (Estados e Região).
+states_regions <- data.frame(state = state.name, regions = state.region) # consulta chatgpt.
+
+# Quantidade de Estados por Região.
+states_regions %>%
+  group_by(regions) %>%
+  count()
+
+# Amostragem Aleatoria de 8 Estados.
+states_srs <- states_regions %>%
+  slice_sample(n = 8) %>%
+  count(regions) %>%
+  rename(states = n)
 ```
 
 **Amostragem Estratificada:**
@@ -475,11 +493,18 @@ Obs.: Foram selecionados 3 representante por estado (50 estados) para que a amos
 county_noDC_srs150 %>%
   group_by(state) %>%
   count()
+## Nem todos os estados foram amostrados com a técnica anterios.
 
-# Estratificando por estado. 
+# Estratificar por estado. 
 county_noDC %>%
   group_by(state) %>% # Estratos: estados
   slice_sample(n = 3) %>% # Observações: 3 por estado
   select(name, state)
+
+# Verificar
+county_noDC %>%
+  group_by(state) %>%
+  slice_sample(n = 3) %>%
+  count()
 
 ```
