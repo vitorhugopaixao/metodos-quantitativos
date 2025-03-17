@@ -453,7 +453,7 @@ county_noDC <- county %>%
   filter(state != "District of Columbia") %>%
   droplevels()
 
-unique(county$state)
+unique(county_noDC$state)
 ```
 
 Amostragem Aleatória Simples:
@@ -478,10 +478,8 @@ county_noDC_srs150 %>%
 
 # Estratificando por estado. 
 county_noDC %>%
-  group_by(state) %>%
-  slice_sample(n = 3) %>% 
+  group_by(state) %>% # Estratos: estados
+  slice_sample(n = 3) %>% # Observações: 3 por estado
   select(name, state)
 
 ```
-
-## 
