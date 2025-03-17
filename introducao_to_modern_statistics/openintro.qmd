@@ -448,12 +448,12 @@ levels(county$state)
 Limpar dataframe:
 
 ```{r}
-# retirando "District of Columbia".
+# Retirando "District of Columbia".
 county_noDC <- county %>%
   filter(state != "District of Columbia") %>%
   droplevels()
 
-unique(county_noDC$state)
+unique(county$state)
 ```
 
 Amostragem Aleatória Simples:
@@ -461,7 +461,27 @@ Amostragem Aleatória Simples:
 ```{r}
 # Amostragem Aleatóri Simples de 150 condados:
 county_noDC_srs150 <- county_noDC %>%
-  slice_sample(n=150) # Slice = Fatiar
+  slice_sample(n = 150) # Slice = Fatiar
 
 glimpse(county_noDC_srs150)
 ```
+
+**Amostragem Estratificada:**
+
+Obs.: Foram selecionados 3 representante por estado (50 estados) para que a amostra fosse igual a anterior (150 observacoes).
+
+```{r}
+# Nº Condados por Estado:
+county_noDC_srs150 %>%
+  group_by(state) %>%
+  count()
+
+# Estratificando por estado. 
+county_noDC %>%
+  group_by(state) %>%
+  slice_sample(n = 3) %>% 
+  select(name, state)
+
+```
+
+## 
