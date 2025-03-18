@@ -469,8 +469,8 @@ glimpse(county_noDC_srs150)
 **Exercício: Amostra Aleatoria Simples.**
 
 ```{r}
-# data frame do exercício (Estados e Região).
-states_regions <- data.frame(state = state.name, regions = state.region) # consulta chatgpt.
+# Data frame do exercício (Estados e Região).
+states_regions <- data.frame(state = state.name, regions = state.region) # consulta chatgpt para adaptar.
 
 # Quantidade de Estados por Região.
 states_regions %>%
@@ -479,7 +479,7 @@ states_regions %>%
 
 # Amostragem Aleatoria de 8 Estados.
 states_srs <- states_regions %>%
-  slice_sample(n = 8) %>%
+  slice_sample(n = 8) %>% #Total Estados selecionados independente da regiao
   count(regions) %>%
   rename(states = n)
 ```
@@ -507,4 +507,22 @@ county_noDC %>%
   slice_sample(n = 3) %>%
   count()
 
+```
+
+### Exercício: Amostra Estratificada em R:
+
+Selecionar um total de oito estados, dois de cada estrato.
+
+```{r}
+# Data frame do exercício (Estados e Região).
+states_regions2 <- data.frame(state = state.name, regions = state.region) # Identico ao states_regions.
+
+## Estratos(regioes): 4
+## Amostras por estratos(estados): 2
+
+states_regions2 %>%
+  group_by(regions) %>%
+  slice_sample(n = 2) %>%
+  count(regions) %>%
+  rename(sates = n)
 ```
