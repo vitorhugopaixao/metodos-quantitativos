@@ -134,6 +134,7 @@ unique(email_50$dollar)
 
 glimpse(email_50$password) #The number of times “password” appeared in the email.
 summary(email_50$password)
+unique(email_50$password)
 
 glimpse(email_50$line_breaks) #The number of line breaks in the email (does not count text wrapping).
 summary(email_50$line_breaks)
