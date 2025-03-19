@@ -112,7 +112,6 @@ levels(high_school_beyond$prog)
 ```
 
 ```{r}
-
 # Tipos de variáveis: df email50
 glimpse(email_50)
 
@@ -131,7 +130,7 @@ unique(email_50$attach)
 
 glimpse(email_50$dollar) #The number of times a dollar sign or the word “dollar” appeared in the email.
 summary(email_50$dollar)
-email_50$dollar
+unique(email_50$dollar)
 
 glimpse(email_50$password) #The number of times “password” appeared in the email.
 summary(email_50$password)
