@@ -237,7 +237,7 @@ email_50 %>%
 
 ```
 
-### Combinando Níveis de um fator diferente.
+### Combinando Níveis de um Fator Diferente.
 
 ```{r}
 glimpse(email_50)
@@ -255,7 +255,7 @@ summary(high_school_beyond)
 # Em summary:
 ## chr: nº de linhas;
 ## int: summary e
-## fct: levels.
+## fct: nº dos levels.
 
 #library(ggplot2) # faz parte do tidyverse
 # Gráfico Bivariado (science, math)
@@ -283,7 +283,7 @@ ggplot(data = email_50,
   
 ```
 
-## Lição 2: Tipos de Estudo:
+## Lição 2: Tipos de Estudo.
 
 ### **Objetivos:**
 
@@ -320,30 +320,30 @@ Trecho dos dados do Gapminder sobre expectativa de vida, PIB per capita e popula
 ```{r}
 # Base de Dados do pct openintro.
 head(gapminder)
-str(gapminder)
+str(gapminder) 
 ```
 
 ### Amostragem Aleatória e Atribuição Aleatória:
 
 -   Amostragem Aleatória: Sujeitos selecionados aleatoriamente da população de interesse.
 
-    -   Amostra representativa da população
+    -   Amostra representativa da população e
 
-    -   Generalização sobre a população
+    -   Generalizar sobre a população.
 
 -   Atribuição Aleatória:
 
     -   Sujeitos atribuídos de forma aleatória aos grupos tratamento e controle
 
-        -   Cenário experimental
+        -   Cenário experimental e
 
-        -   Conclusões causais
+        -   Conclusões causais.
 
 ### Paradoxo de Simpson:
 
 -   Paradoxo de Simposon: Não considerar uma variável importante como tal para o relacionamento entre variáveis.
 
-    -   Uma outra variável explicativa pode mudar a aparente relação entre outras var. expli. e a variável resposta.
+    -   Uma outra variável explicativa não considerada pode mudar a aparente relação entre var. expli. e a variável resposta.
 
 -   Variável Resposta: Afetada
 
@@ -358,7 +358,7 @@ unique(ucb_admit$admit)
 # Dados de Admissao Berkeley
 ucb_admit %>%
   count(gender, admit)
-## Ou (São diferentes para outras situacoes)
+## Ou (Os resultados podem ser diferentes para outras situacoes)
 ucb_admit %>%
   group_by(gender) %>%
   count(admit) 
@@ -369,27 +369,27 @@ ucb_admit %>%
   count(admit) %>%
   filter(admit == "admitted")
 
-# Proporcao admitidos rejeitados por genero. (versao do Livro)
+# Proporcao Admitidos Rejeitados por Genero. (versao do Livro)
 ucb_admit %>%
   group_by(gender) %>%
   count(admit) %>%
-  mutate(prop_h_m = n/sum(n))
+  mutate(prop_h_m = n / sum(n))
 
-## Proporcao admitidos e rejeitados em Relacao ao Total. (Minha Versao)
+## Proporcao Admitidos e Rejeitados em Relacao ao Total. (Minha Versao)
 ucb_admit %>%
   count(admit, gender) %>% # Usar group_by dificultaria a proporcao total.
-  mutate(prop_h_m_admitidos = n/sum(n))
+  mutate(prop_h_m_admitidos = n / sum(n))
   
 # Proporcao Genero Admitidos em Relacao ao Total.
 ucb_admit %>%
   count(gender, admit) %>%
-  mutate(prop_h_m_admit = n/sum(n)) %>%
+  mutate(prop_h_m_admit = n / sum(n)) %>%
   filter(admit == "admitted")
 
 ## Proporcao Homens Admitidos em Relacao ao Total de Admitidos.
 ucb_admit %>% 
   count(gender, admit) %>%
-  mutate(prop = n/sum(n)) %>%
+  mutate(prop = n / sum(n)) %>%
   filter(admit == "admitted", gender == "male")
 
 # Proporcao Admitidos por Departamento
@@ -397,20 +397,20 @@ ucb_admit %>%
 ucb_admit %>%
   group_by(dept, gender) %>%
   count(admit) %>%
-  mutate(prop_h_admit_dep = n/sum(n)) %>%
+  mutate(prop_h_admit_dep = n / sum(n)) %>%
   filter(admit == "admitted") 
-  
+
 ## Em Relacao ao Total (Minha Versao)
 ucb_admit %>%
   count(dept, gender, admit) %>%
-  mutate(prop_h_admit_dep = n/sum(n)) %>%
-  filter(admit == "admitted") 
+  mutate(prop_h_admit_dep = n / sum(n)) %>%
+  filter(admit == "admitted")
 
 # Proporcao, por genero, de Homens Admitidos em cada Departamento.(Versão do Livro)
 ucb_admit %>%
   group_by(dept, gender) %>%
   count(admit) %>%
-  mutate(prop_h_admit_dep = n/sum(n)) %>%
+  mutate(prop_h_admit_dep = n / sum(n)) %>%
   filter(gender == "male", admit == "admitted")
 
 ## Proporcao Homens Admitidos em cada Departamento em Relacao ao Total.(Minha Versão)
@@ -451,7 +451,7 @@ Limpar dataframe:
 # Retirando "District of Columbia".
 county_noDC <- county %>%
   filter(state != "District of Columbia") %>%
-  droplevels()
+  droplevels() #Remove "District of Columbia" da estrutura do fator, garantindo que ele não apareça mais em operações futuras.
 
 unique(county_noDC$state)
 ```
@@ -459,7 +459,7 @@ unique(county_noDC$state)
 **Amostragem Aleatória Simples:**
 
 ```{r}
-# Amostragem Aleatóri Simples de 150 condados:
+# Amostragem Aleatória Simples de 150 condados:
 county_noDC_srs150 <- county_noDC %>%
   slice_sample(n = 150) # Slice = Fatiar
 
@@ -479,14 +479,14 @@ states_regions %>%
 
 # Amostragem Aleatoria de 8 Estados.
 states_srs <- states_regions %>%
-  slice_sample(n = 8) %>% #Total Estados selecionados independente da regiao
+  slice_sample(n = 8) %>% #Total Estados selecionados independente da regiao.
   count(regions) %>%
-  rename(states = n)
+  rename(states_samples = n)
 ```
 
 **Amostragem Estratificada:**
 
-Obs.: Foram selecionados 3 representante por estado (50 estados) para que a amostra fosse igual a anterior (150 observacoes).
+Obs.: Foram selecionados 3 representantes por estado (50 estados) para que a amostra fosse igual a anterior (150 observacoes).
 
 ```{r}
 # Nº Condados por Estado:
@@ -521,8 +521,52 @@ states_regions2 <- data.frame(state = state.name, regions = state.region) # Iden
 ## Amostras por estratos(estados): 2
 
 states_regions2 %>%
-  group_by(regions) %>%
-  slice_sample(n = 2) %>%
+  group_by(regions) %>% # Define o estratos.
+  slice_sample(n = 2) %>% # Amostragem aleatória
   count(regions) %>%
   rename(sates = n)
 ```
+
+### **Principios de Desenho Experimental:**
+
+-   Controle;
+
+    -   Comparar os grupos: tratamento e controle.
+
+-   Randomização;
+
+    -   Atribuir aleatoriamento os sujeitos aos grupos (tratamento e controle).
+
+-   Replicação e
+
+    -   Replicar um estudo anterior ou coletar uma amostra suficientemente grande dentro de um grupo de estudo.
+
+-   Bloqueio.
+
+    -   Considerar o efeito potencial de variáveis de confusão (conhecidas ou suspeitas).
+
+        1.  Agrupar sujeitos em blocos com base nas variáveis (confusão e não);
+
+        2.  Ramdomizar, de cada bloco, a mesma quantidade de sujeitos para grupos de tratamento e controle.
+
+    -   Ex.: Qual o melhor desempenho obtido em um Curso de Programação:
+
+        -   Grupos: palestra ou on-line (Variável Explicativa).
+
+        -   Variável de Confusão/bloqueio: Experiência anterior em programação.
+
+        -   Bloqueio: ter experiência anterior em programação.
+
+            1.  Agrupar sujeitos com experiência (bloco 1) e sem experiencia anterior (bloco 2) e
+
+            2.  Ramdomizar sujeitos do bloco 1, em quantidades iguais, para cada grupo.
+
+            3.  Fazer o mesmo do passo 2 com o bloco 2.
+
+        -   Variáveis:
+
+            -   Resposta: desempenho no curso;
+
+            -   Explicativas: palestra e on-line e
+
+            -   Bloqueio: experiência anterior.
