@@ -30,7 +30,6 @@ autor: V. Paixao
 ```{r}
 library(tidyverse) # coleção de pacotes para data science.
 library(openintro) # carregando conjunto de dados open intro.
-
 ```
 
 ### Bases de Dados (openintro):
@@ -425,7 +424,7 @@ ucb_admit %>%
   arrange(desc(n))
 ```
 
-## Lição 3: Estratégia de Amostragem e Desenho Experimental
+## Lição 3: Estratégia de Amostragem e Desenho Experimental.
 
 ### Amostragem:
 
@@ -541,32 +540,50 @@ states_regions2 %>%
 
     -   Replicar um estudo anterior ou coletar uma amostra suficientemente grande dentro de um grupo de estudo.
 
--   Bloqueio.
+Bloqueio.
 
-    -   Considerar o efeito potencial de variáveis de confusão (conhecidas ou suspeitas).
+-   Considerar o efeito potencial de variáveis de confusão (conhecidas ou suspeitas).
 
-        1.  Agrupar sujeitos em blocos com base nas variáveis (confusão e não);
+    1.  Agrupar sujeitos em blocos com base nas variáveis (confusão e não);
 
-        2.  Ramdomizar, de cada bloco, a mesma quantidade de sujeitos para grupos de tratamento e controle.
+    2.  Ramdomizar, de cada bloco, a mesma quantidade de sujeitos para grupos de tratamento e controle.
 
-    -   Ex.: Qual o melhor desempenho obtido em um Curso de Programação:
+-   Ex.: Qual o melhor desempenho obtido em um Curso de Programação:
 
-        -   Grupos: palestra ou on-line (Variável Explicativa).
+    -   Grupos: palestra ou on-line (Variável Explicativa).
 
-        -   Variável de Confusão/bloqueio: Experiência anterior em programação.
+    -   Variável de Confusão/bloqueio: Experiência anterior em programação.
 
-        -   Bloqueio: ter experiência anterior em programação.
+    -   Bloqueio: ter experiência anterior em programação.
 
-            1.  Agrupar sujeitos com experiência (bloco 1) e sem experiencia anterior (bloco 2) e
+        1.  Agrupar sujeitos com experiência (bloco 1) e sem experiencia anterior (bloco 2) e
 
-            2.  Ramdomizar sujeitos do bloco 1, em quantidades iguais, para cada grupo.
+        2.  Ramdomizar sujeitos do bloco 1, em quantidades iguais, para cada grupo.
 
-            3.  Fazer o mesmo do passo 2 com o bloco 2.
+        3.  Fazer o mesmo do passo 2 com o bloco 2.
 
-        -   Variáveis:
+    -   Variáveis:
 
-            -   Resposta: desempenho no curso;
+        -   Resposta: desempenho no curso;
 
-            -   Explicativas: palestra e on-line e
+        -   Explicativas: palestra e on-line e
 
-            -   Bloqueio: experiência anterior.
+        -   Bloqueio: experiência anterior.
+
+## Lição 4: Estudo de Caso.
+
+### Exercício: Beleza na Sala de Aula
+
+Carregar Data Frame
+
+```{r}
+load("C:/Users/vitro/git/metodos-quantitativos/introducao_to_modern_statistics/data/evals.rda")
+```
+
+Inspecionar Data Frame.
+
+```{r}
+str(evals)
+head(evals,10)
+summary(evals)
+```
