@@ -597,3 +597,12 @@ glimpse(evals)
 head(evals,10)
 summary(evals)
 ```
+
+Discretizar Variável:
+
+```{r}
+evals %>%
+  mutate(cls_type = case_when(cls_students < 19 ~ "pequena",
+                              cls_students >= 19 & cls_students <= 59 ~ "media",
+                              cls_students > 59 ~ "grande"))
+```
