@@ -219,11 +219,21 @@ Converter uma variável numérica em uma variável categórica.
 # df high_school_beyond
 (avg_read <- mean(high_school_beyond$read)) # colocar entre () imprime o resultado atribuído à variável.
 
+# discretizar variavel read.
 high_school_beyond %>% 
   mutate(read_cat = if_else(read < avg_read, 
         "reprovado", 
         "aprovado"))
 
+
+# discretizar variavel socst.
+(avg_socst <- round(mean(high_school_beyond$socst)))
+
+high_school_beyond %>%
+  mutate(socst_cat = case_when( #case_when = multiplos
+    socst < avg_socst ~ "abaixo da media",
+    socst == avg_socst ~ "media",
+    socst > avg_socst ~ "acima da media"))
 ```
 
 ```{r}
@@ -577,13 +587,13 @@ Bloqueio.
 Carregar Data Frame
 
 ```{r}
-load("C:/Users/vitro/git/metodos-quantitativos/introducao_to_modern_statistics/data/evals.rda")
+load("C:/Users/vitro/git/metodos-quantitativos/introducao_to_modern_statistics/data/evals.rda") # O pacote não consta no openintro. Baixado do github openintro.
 ```
 
 Inspecionar Data Frame.
 
 ```{r}
-str(evals)
+glimpse(evals)
 head(evals,10)
 summary(evals)
 ```
