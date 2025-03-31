@@ -89,7 +89,7 @@ summary(high_school_beyond$socst)
 glimpse(high_school_beyond$id)
 high_school_beyond %>% 
   select(id) %>%
-  arrange(id) # ordena o df conf. os valores de uma coluna.
+  arrange(descid) # ordena o df conf. os valores de uma coluna.
 
 ## Var. Quali. Nominais: null
 
@@ -442,7 +442,6 @@ ucb_admit %>%
 # Carregando Pacotes:
 library(usdata) #pacote (pct) da base de dados
 library(tidyverse) #pct amostragem e agrupamento
-
 ```
 
 Inspecionar dataframe:
@@ -596,6 +595,23 @@ Inspecionar Data Frame.
 glimpse(evals)
 head(evals,10)
 summary(evals)
+
+# Inspecionar Variaveis Qualitativas, Categoricas e Quantitativas.
+evals_quali_ord <- c("course_id", "prof_id")
+view(evals_quali_ord)
+
+# evals_quali_nom <- c("") Nao ha variaveis quali nominais
+
+evals_quali_categ <- c("rank", "ethnicity", "gender", "language", "cls_level", "cls_profs", "cls_credits","pic_outfit", "pic_color")
+view(evals_quali_categ)
+
+evals_quanti_disc <-c("age", "cls_did_eval", "cls_students","bty_f1lower", "bty_f1upper", "bty_f2upper", "bty_m1lower", "bty_m1upper", "bty_m2upper")
+view(evals_quanti_disc)
+
+evals_quanti_cont <- c("score","cls_perc_eval", "bty_avg")
+view(evals_quanti_cont)
+
+
 ```
 
 Discretizar Variável:
@@ -604,5 +620,7 @@ Discretizar Variável:
 evals %>%
   mutate(cls_type = case_when(cls_students < 19 ~ "pequena",
                               cls_students >= 19 & cls_students <= 59 ~ "media",
-                              cls_students > 59 ~ "grande"))
+                              cls_students > 59 ~ "grande"
+                              )
+         )
 ```
