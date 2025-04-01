@@ -610,17 +610,27 @@ view(evals_quanti_disc)
 
 evals_quanti_cont <- c("score","cls_perc_eval", "bty_avg")
 view(evals_quanti_cont)
-
-
 ```
 
 Discretizar Variável:
 
 ```{r}
-evals %>%
+# cls_students: Variável Numerica Discreta
+# cls_type: Variavel Categorica com 3 niveis.
+evals_cls_type <- evals %>%
   mutate(cls_type = case_when(cls_students < 19 ~ "pequena",
                               cls_students >= 19 & cls_students <= 59 ~ "media",
                               cls_students > 59 ~ "grande"
                               )
          )
+```
+
+Grafico de Dispersao
+
+```{r}
+# Relacao bty_avg e score.
+glimpse(evals)
+
+ggplot(evals_cls_type, aes(x = bty_avg, y = score, color = cls_type)) + 
+  geom_point()
 ```
