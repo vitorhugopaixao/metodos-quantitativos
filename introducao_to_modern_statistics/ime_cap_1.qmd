@@ -63,7 +63,7 @@ df.stend.30.365.join$group.y <- NULL
 view(df.stend.30.365.join)
 
 # Renomear Variavel
-df.stend.30.365.join %>%
+df.stend.30.365.join <- df.stend.30.365.join %>%
   rename(group = group.x, outcome.30 = outcome.x, outcome.365 = outcome.y)
 
 ```
