@@ -1,0 +1,39 @@
+---
+title: "ime_cap_1"
+format: html
+editor: visual
+---
+
+## Capítulo 1: Olá Dados.
+
+Pacotes:
+
+```{r}
+library(tidyverse) # Pacotes para manipulação e visualização de dados
+library(openintro) # Pacotes e materiais para ensino de estatística 
+```
+
+Visualiza data frames:
+
+```{r}
+view(stent30)
+view(stent365)
+```
+
+Inspecionar data frame:
+
+```{r}
+glimpse(stent30)
+# duas variaveis quali categoricas: group e outcome.
+# observacoes: 451
+summary(stent30)
+# grupos: controle e tratamento
+# resultados possíveis para o tratamento: AVC ou sem eventos
+
+glimpse(stent365)
+# duas variaveis quali categoricas: group e outcome.
+# observacoes: 451
+summary(stent365)
+# grupos: controle e tratamento
+# resultados possíveis para o tratamento: AVC ou sem eventos
+```
