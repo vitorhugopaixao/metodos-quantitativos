@@ -13,11 +13,11 @@ library(tidyverse) # Pacotes para manipulação e visualização de dados
 library(openintro) # Pacotes e materiais para ensino de estatística 
 ```
 
-Visualiza data frames:
+Visualizar data frames:
 
 ```{r}
-view(stent30)
-view(stent365)
+view(stent30) # testagem realizada em 30 dias.
+view(stent365) # testagem realizada em 365 dias.
 ```
 
 Inspecionar data frame:
@@ -36,4 +36,42 @@ glimpse(stent365)
 summary(stent365)
 # grupos: controle e tratamento
 # resultados possíveis para o tratamento: AVC ou sem eventos
+```
+
+Transformar df para uma unica base:
+
+```{r}
+# Incluindo variavel id para o join.
+df.stent.30 <- stent30 %>%
+  mutate(id = 1:451) %>% # cria uma nova variável.
+  relocate(id) # desloca a variável para o inicio.
+
+df.stent.365 <- stent365 %>%
+  mutate(id = 1:451) %>%
+  relocate(id, .before = group) # desloca a variável para uma posição especifica.
+
+# Unindo os dfs
+df.stend.30.365.join <- left_join(df.stent.30, df.stent.365, by = "id")
+
+# Conferir se group.x é igual a group.y
+df.stend.30.365.join %>%
+  mutate(confere = if_else(group.x == group.y, "i", "d" )) %>%
+  count(confere)
+
+# Excluir var repetida (group.y)
+df.stend.30.365.join$group.y <- NULL 
+view(df.stend.30.365.join)
+
+# Renomear Variavel
+df.stend.30.365.join %>%
+  rename(group = group.x, outcome.30 = outcome.x, outcome.365 = outcome.y)
+
+```
+
+Amostragem Aleatória:
+
+```{r}
+# selecionar 5 pacientes 
+df.stend.30.365.join %>% 
+  slice_sample(n = 5)
 ```
