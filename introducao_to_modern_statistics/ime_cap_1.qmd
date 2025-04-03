@@ -2,6 +2,7 @@
 title: "ime_cap_1"
 format: html
 editor: visual
+autor: vitor paixao
 ---
 
 ## Capítulo 1: Olá Dados.
@@ -26,6 +27,7 @@ Inspecionar data frame:
 glimpse(stent30)
 # duas variaveis quali categoricas: group e outcome.
 # observacoes: 451
+
 summary(stent30)
 # grupos: controle e tratamento
 # resultados possíveis para o tratamento: AVC ou sem eventos
@@ -50,12 +52,12 @@ df.stent.365 <- stent365 %>%
   mutate(id = 1:451) %>%
   relocate(id, .before = group) # desloca a variável para uma posição especifica.
 
-# Unindo os dfs
+# Unir os dfs
 df.stend.30.365.join <- left_join(df.stent.30, df.stent.365, by = "id")
 
 # Conferir se group.x é igual a group.y
 df.stend.30.365.join %>%
-  mutate(confere = if_else(group.x == group.y, "i", "d" )) %>%
+  mutate(confere = if_else(group.x == group.y, "igual", "diferente" )) %>%
   count(confere)
 
 # Excluir var repetida (group.y)
@@ -71,7 +73,22 @@ df.stend.30.365.join <- df.stend.30.365.join %>%
 Amostragem Aleatória:
 
 ```{r}
-# selecionar 5 pacientes 
+# selecionar 5 pacientes (Tabela 1.1: Resultados para cinco pacientes do estudo do stent.)
 df.stend.30.365.join %>% 
   slice_sample(n = 5)
+```
+
+Contagem:
+
+```{r}
+# 
+df.stend.30.365.join %>%
+  group_by(group, outcome.30, outcome.365) %>%
+  count() %>%
+  rename(total = n)
+
+```
+
+```{r}
+
 ```
