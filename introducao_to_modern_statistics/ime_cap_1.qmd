@@ -67,7 +67,6 @@ view(df.stend.30.365.join)
 # Renomear Variavel
 df.stend.30.365.join <- df.stend.30.365.join %>%
   rename(group = group.x, outcome.30 = outcome.x, outcome.365 = outcome.y)
-
 ```
 
 Amostragem Aleatória:
@@ -81,14 +80,34 @@ df.stend.30.365.join %>%
 Contagem:
 
 ```{r}
-# 
+# Estatistica Descritiva:   
 df.stend.30.365.join %>%
   group_by(group, outcome.30, outcome.365) %>%
   count() %>%
   rename(total = n)
 
+# Proporcao. 
+df.stend.30.365.join %>%
+  group_by(group) %>%
+  count(outcome.365) %>%
+  mutate(percent = n/sum(n))
+
+# Mais pacientes tiveram problemas no grupo de tratamento, que no grupo de controle.
 ```
 
 ```{r}
+# Observacoe loan50 df.
+head(loan50,6) %>%
+  select(loan_amount, # Valor do empréstimo recebido, em uss americanos.
+         interest_rate, # Tx de juros do empréstimo, em uma porcentagem anual.
+         term, # Duração do empréstimo, número inteiro de meses.
+         grade, # Grau empréstimo de A a G. Quali empréstimo e probabili. de pagar.
+         state, # Estado dos EUA, onde reside o mutuário.
+         total_income, # Renda total do mutuário, inclui segunda renda, em US$.
+         homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
+         )
+
+
+
 
 ```
