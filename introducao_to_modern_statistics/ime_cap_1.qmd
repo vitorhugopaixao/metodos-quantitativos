@@ -66,7 +66,10 @@ view(df.stend.30.365.join)
 
 # Renomear Variavel
 df.stend.30.365.join <- df.stend.30.365.join %>%
-  rename(group = group.x, outcome.30 = outcome.x, outcome.365 = outcome.y)
+  rename(group = group.x, 
+         outcome.30 = outcome.x, 
+         outcome.365 = outcome.y
+         )
 ```
 
 Amostragem Aleatória:
@@ -95,10 +98,20 @@ df.stend.30.365.join %>%
 # Mais pacientes tiveram problemas no grupo de tratamento, que no grupo de controle.
 ```
 
+Inspecao e Transformacao df loan50:
+
 ```{r}
-# Observacoe loan50 df.
-head(loan50,6) %>%
-  select(loan_amount, # Valor do empréstimo recebido, em uss americanos.
+# Inspecionar dataframe loan50.
+glimpse (loan50)
+
+# cira coluna de id.
+tranform.df.loan50 %>%
+  mutate (id = 1:50) %>% 
+  relocate (id)
+
+# 6 primeiras Observacoe df loan50.
+head (loan50,6) %>%
+  select (loan_amount, # Valor do empréstimo recebido, em uss americanos.
          interest_rate, # Tx de juros do empréstimo, em uma porcentagem anual.
          term, # Duração do empréstimo, número inteiro de meses.
          grade, # Grau empréstimo de A a G. Quali empréstimo e probabili. de pagar.
@@ -106,8 +119,4 @@ head(loan50,6) %>%
          total_income, # Renda total do mutuário, inclui segunda renda, em US$.
          homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
          )
-
-
-
-
 ```
