@@ -35,6 +35,7 @@ summary(stent30)
 glimpse(stent365)
 # duas variaveis quali categoricas: group e outcome.
 # observacoes: 451
+
 summary(stent365)
 # grupos: controle e tratamento
 # resultados possíveis para o tratamento: AVC ou sem eventos
@@ -98,7 +99,7 @@ df.stend.30.365.join %>%
 # Mais pacientes tiveram problemas no grupo de tratamento, que no grupo de controle.
 ```
 
-Inspecao e Transformacao df loan50:
+Inspecionar e Transformar df loan50:
 
 ```{r}
 # Inspecionar dataframe loan50.
@@ -119,4 +120,20 @@ head (loan50,6) %>%
          total_income, # Renda total do mutuário, inclui segunda renda, em US$.
          homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
          )
+```
+
+### Data Frame: county.
+
+1 - Inspecionar df;
+
+```{r}
+glimpse(county)
+
+county %>%
+  select(unemployment_rate, pop2017, state, median_edu)
+
+# Variaveis numerica continuas: unemployment_rate.
+# Variaveis numerica discretas: pop2017.
+# VAriavel qualitativa categorica: state;
+# Variavel qualitativa categorica ordinal: median_edu.
 ```
