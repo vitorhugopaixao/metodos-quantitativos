@@ -104,9 +104,9 @@ Inspecionar e Transformar df loan50:
 ```{r}
 # Inspecionar dataframe loan50.
 glimpse (loan50)
-
-# cira coluna de id.
-tranform.df.loan50 %>%
+view(loan50)
+# criar coluna de id.
+tranform.df.loan50 <- loan50 %>%
   mutate (id = 1:50) %>% 
   relocate (id)
 
