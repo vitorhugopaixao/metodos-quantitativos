@@ -87,9 +87,10 @@ summary(high_school_beyond$socst)
 
 ## Var. Quali. Ordinal: id
 glimpse(high_school_beyond$id)
+
 high_school_beyond %>% 
   select(id) %>%
-  arrange(descid) # ordena o df conf. os valores de uma coluna.
+  arrange(desc(id)) # ordena o df conf. os valores de uma coluna.
 
 ## Var. Quali. Nominais: null
 
@@ -276,6 +277,7 @@ ggplot(data = high_school_beyond,
 ```
 
 ```{r}
+####### PARAR AQUI #######
 # Gráfico Multivariado (science, math, prog)
 ggplot(data = high_school_beyond, 
        aes(x = science, y = math, color = prog)) +
