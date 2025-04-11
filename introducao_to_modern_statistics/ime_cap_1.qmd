@@ -104,7 +104,8 @@ Inspecionar e Transformar df loan50:
 ```{r}
 # Inspecionar dataframe loan50.
 glimpse (loan50)
-view(loan50)
+view (loan50)
+
 # criar coluna de id.
 tranform.df.loan50 <- loan50 %>%
   mutate (id = 1:50) %>% 
@@ -120,6 +121,8 @@ head (loan50,6) %>%
          total_income, # Renda total do mutuário, inclui segunda renda, em US$.
          homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
          )
+
+# Possivel pergunta envolvendo duas variáveis: qual o maior valor médio de empréstimos tomados dentre os estado? Existe uma relação entre a o limite de crédito liberado e a taxa de juros? 
 ```
 
 ### Data Frame: county.
@@ -136,4 +139,34 @@ county %>%
 # Variaveis numerica discretas: pop2017.
 # VAriavel qualitativa categorica: state;
 # Variavel qualitativa categorica ordinal: median_edu.
+```
+
+2 - Perguntas:
+
+```{r}
+# Um valor maior do que a média na população do condado tende a corresponder a condados com rendas familiares media maiores ou menores?
+
+glimpse (county)
+
+# Maior populacao esta associado a maior renda media?
+
+mean.pop.2017 <- mean (county$pop2017, na.rm = TRUE) # calculo da media.
+
+sum.mean.income <- mean (county$median_hh_income, na.rm = TRUE)
+
+county2 <- county %>%
+  mutate (pop.relation.avg = if_else (pop2017 > mean.pop.2017, 
+                                      "pop greater avg", 
+                                      "pop less or equal to avg")) %>% # populacao em relacao a media.
+  mutate (income.avg = if_else (!is.na(median_hh_income) & median_hh_income > sum.mean.income,
+                                "higher avg income", 
+                                "lower or equal avg income")) %>%
+  group_by (pop.relation.avg, income.avg) %>%
+  summarise (sum.income = (sum(median_hh_income, na.rm = TRUE))) # cria coluna com soma de income.
+
+# Se a taxa de propriedade de imóveis residenciais for menor que a média nacional em um condado, a porcentagem de unidades habitacionais em estruturas multifamiliares nesse condado tenderá a ser maior ou menor da média nacional?
+
+
+
+# Em que medida o nível médio de educação pode explicar a renda familiar média de condados nos EUA?
 ```
