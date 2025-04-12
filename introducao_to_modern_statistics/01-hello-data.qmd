@@ -1,0 +1,175 @@
+---
+title: "ime_cap_1"
+format: html
+editor: visual
+autor: vitor paixao
+---
+
+## Capítulo 1: Olá Dados.
+
+Pacotes:
+
+```{r}
+install.packages("styler")
+library (tidyverse) # Pacotes para manipulação e visualização de dados
+library (openintro) # Pacotes e materiais para ensino de estatística 
+```
+
+Visualizar data frames:
+
+```{r}
+view (stent30) # testagem realizada em 30 dias.
+view (stent365) # testagem realizada em 365 dias.
+```
+
+Inspecionar data frame:
+
+```{r}
+glimpse (stent30)
+# duas variaveis quali categoricas: group e outcome.
+# observacoes: 451
+
+summary (stent30)
+# grupos: controle e tratamento
+# resultados possíveis para o tratamento: AVC ou sem eventos
+
+glimpse (stent365)
+# duas variaveis quali categoricas: group e outcome.
+# observacoes: 451
+
+summary (stent365)
+# grupos: controle e tratamento
+# resultados possíveis para o tratamento: AVC ou sem eventos
+```
+
+Transformar df para uma unica base:
+
+```{r}
+# Incluindo variavel id para o join.
+df_stent_30 <- stent30 %>%
+  mutate (id = 1:451) %>% # cria uma nova variável.
+  relocate (id) # desloca a variável para o inicio.
+
+df_stent_365 <- stent365 %>%
+  mutate (id = 1:451) %>%
+  relocate (id, .before = group) # desloca a variável para uma posição especifica.
+
+# Unir os dfs
+df_stend_30_365_join <- left_join (df_stent_30, df_stent_365, by = "id")
+
+# Conferir se group.x é igual a group.y
+df_stend_30_365_join %>%
+  mutate (confere = if_else(group.x == group.y, "igual", "diferente" )) %>%
+  count (confere)
+
+# Excluir var repetida (group.y)
+df_stend_30_365_join$group.y <- NULL 
+view (df_stend_30_365_join)
+
+# Renomear Variavel
+df_stend_30_365_join <- df_stend_30_365_join %>%
+  rename (group = group.x, 
+         outcome.30 = outcome.x, 
+         outcome.365 = outcome.y
+         )
+
+```
+
+Amostragem Aleatória:
+
+```{r}
+# selecionar 5 pacientes (Tabela 1.1: Resultados para cinco pacientes do estudo do stent.)
+df_stend_30_365_join %>% 
+  slice_sample(n = 5)
+```
+
+Contagem:
+
+```{r}
+# Estatistica Descritiva:   
+df_stend_30_365_join %>%
+  group_by(group, outcome.30, outcome.365) %>%
+  count() %>%
+  rename(total = n)
+
+# Proporcao. 
+df_stend_30_365_join %>%
+  group_by(group) %>%
+  count(outcome.365) %>%
+  mutate(percent = n/sum(n))
+
+# Mais pacientes tiveram problemas no grupo de tratamento, que no grupo de controle.
+```
+
+Inspecionar e Transformar df loan50:
+
+```{r}
+# Inspecionar dataframe loan50.
+glimpse (loan50)
+view (loan50)
+
+# criar coluna de id.
+tranform_df_loan50 <- loan50 %>%
+  mutate (id = 1:50) %>% 
+  relocate (id)
+
+# 6 primeiras Observacoe df loan50.
+head (loan50,6) %>%
+  select (loan_amount, # Valor do empréstimo recebido, em uss americanos.
+         interest_rate, # Tx de juros do empréstimo, em uma porcentagem anual.
+         term, # Duração do empréstimo, número inteiro de meses.
+         grade, # Grau empréstimo de A a G. Quali empréstimo e probabili. de pagar.
+         state, # Estado dos EUA, onde reside o mutuário.
+         total_income, # Renda total do mutuário, inclui segunda renda, em US$.
+         homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
+         )
+
+# Possivel pergunta envolvendo duas variáveis: qual o maior valor médio de empréstimos tomados dentre os estado? Existe uma relação entre a o limite de crédito liberado e a taxa de juros? 
+```
+
+### Data Frame: county.
+
+1 - Inspecionar df;
+
+```{r}
+glimpse(county)
+
+county %>%
+  select(unemployment_rate, pop2017, state, median_edu)
+
+# Variaveis numerica continuas: unemployment_rate.
+# Variaveis numerica discretas: pop2017.
+# VAriavel qualitativa categorica: state;
+# Variavel qualitativa categorica ordinal: median_edu.
+```
+
+2 - Perguntas:
+
+```{r}
+# Um valor maior do que a média na população do condado tende a corresponder a condados com rendas familiares media maiores ou menores?
+
+glimpse (county)
+
+mean_pop_2017 <- mean (county$pop2017, na.rm = TRUE) # calculo da media.
+
+sum_mean_income <- mean (county$median_hh_income, na.rm = TRUE)
+
+county2 <- county %>%
+  mutate (pop_relation_avg = if_else (pop2017 > mean_pop_2017, 
+                                      "pop greater avg", 
+                                      "pop less or equal to avg")) %>% 
+  mutate (income_avg = if_else (!is.na(median_hh_income) & median_hh_income > sum_mean_income,
+                                "higher avg income", 
+                                "lower or equal avg income")) %>%
+  group_by (pop_relation_avg, 
+            income_avg) %>%
+  summarise (sum_income = (sum(median_hh_income, na.rm = TRUE))) # cria coluna com soma de income.
+
+
+
+# Se a taxa de propriedade de imóveis residenciais for menor que a média nacional em um condado, a porcentagem de unidades habitacionais em estruturas multifamiliares nesse condado tenderá a ser maior ou menor da média nacional?
+
+
+
+# Em que medida o nível médio de educação pode explicar a renda familiar média de condados nos EUA?
+```
