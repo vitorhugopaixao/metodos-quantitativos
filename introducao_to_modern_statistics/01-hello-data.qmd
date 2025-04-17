@@ -10,7 +10,8 @@ autor: vitor paixao
 Pacotes:
 
 ```{r}
-install.packages("styler")
+install.packages ("styler")
+library(styler) # Pacote styler
 library (tidyverse) # Pacotes para manipulação e visualização de dados
 library (openintro) # Pacotes e materiais para ensino de estatística 
 ```
@@ -59,7 +60,7 @@ df_stend_30_365_join <- left_join (df_stent_30, df_stent_365, by = "id")
 
 # Conferir se group.x é igual a group.y
 df_stend_30_365_join %>%
-  mutate (confere = if_else(group.x == group.y, "igual", "diferente" )) %>%
+  mutate (confere = if_else (group.x == group.y, "igual", "diferente")) %>%
   count (confere)
 
 # Excluir var repetida (group.y)
@@ -68,10 +69,7 @@ view (df_stend_30_365_join)
 
 # Renomear Variavel
 df_stend_30_365_join <- df_stend_30_365_join %>%
-  rename (group = group.x, 
-         outcome.30 = outcome.x, 
-         outcome.365 = outcome.y
-         )
+  rename (group = group.x, outcome.30 = outcome.x, outcome.365 = outcome.y)
 
 ```
 
@@ -96,7 +94,7 @@ df_stend_30_365_join %>%
 df_stend_30_365_join %>%
   group_by(group) %>%
   count(outcome.365) %>%
-  mutate(percent = n/sum(n))
+  mutate(percent = n / sum(n))
 
 # Mais pacientes tiveram problemas no grupo de tratamento, que no grupo de controle.
 ```
@@ -115,14 +113,15 @@ tranform_df_loan50 <- loan50 %>%
 
 # 6 primeiras Observacoe df loan50.
 head (loan50,6) %>%
-  select (loan_amount, # Valor do empréstimo recebido, em uss americanos.
-         interest_rate, # Tx de juros do empréstimo, em uma porcentagem anual.
-         term, # Duração do empréstimo, número inteiro de meses.
-         grade, # Grau empréstimo de A a G. Quali empréstimo e probabili. de pagar.
-         state, # Estado dos EUA, onde reside o mutuário.
-         total_income, # Renda total do mutuário, inclui segunda renda, em US$.
-         homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
-         )
+  select (
+    loan_amount, # Valor do empréstimo recebido, em uss americanos.
+    interest_rate, # Tx de juros do empréstimo, em uma porcentagem anual.
+    term, # Duração do empréstimo, número inteiro de meses.
+    grade, # Grau empréstimo de A a G. Quali empréstimo e probabili. de pagar.
+    state, # Estado dos EUA, onde reside o mutuário.
+    total_income, # Renda total do mutuário, inclui segunda renda, em US$.
+    homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
+    )
 
 # Possivel pergunta envolvendo duas variáveis: qual o maior valor médio de empréstimos tomados dentre os estado? Existe uma relação entre a o limite de crédito liberado e a taxa de juros? 
 ```
@@ -158,11 +157,12 @@ county2 <- county %>%
   mutate (pop_relation_avg = if_else (pop2017 > mean_pop_2017, 
                                       "pop greater avg", 
                                       "pop less or equal to avg")) %>% 
-  mutate (income_avg = if_else (!is.na(median_hh_income) & median_hh_income > sum_mean_income,
-                                "higher avg income", 
-                                "lower or equal avg income")) %>%
-  group_by (pop_relation_avg, 
-            income_avg) %>%
+  mutate (income_avg = if_else (
+                     !is.na(median_hh_income) & median_hh_income > sum_mean_income,                      "higher avg income",
+                     "lower or equal avg income"
+                     )
+          ) %>%
+  group_by (pop_relation_avg, income_avg) %>%
   summarise (sum_income = (sum(median_hh_income, na.rm = TRUE))) # cria coluna com soma de income.
 
 
