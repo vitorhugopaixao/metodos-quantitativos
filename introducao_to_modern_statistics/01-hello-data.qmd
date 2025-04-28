@@ -135,6 +135,19 @@ loan50 %>%
 
 ```
 
+2.  Existe uma relação entre a o limite de crédito liberado e a taxa de juros?
+
+    ```{r}
+    summary(loan50$interest_rate)
+    summary(loan50$total_credit_limit)
+
+    ggplot(data = loan50, 
+           mapping = aes(x = total_credit_limit, y = interest_rate)) +
+      geom_point()
+
+    # Conforme gráfico, nao existe relacao entre o limite do empréstimo e a tx de juros. Independente do limite, as tx cobradas, em sua maioria, sao inferiores a 12,75%.
+    ```
+
 ### Data Frame: county.
 
 1 - Inspecionar df;
