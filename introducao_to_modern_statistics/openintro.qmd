@@ -48,13 +48,13 @@ library(openintro) # carregando conjunto de dados open intro.
 # bases de dados do pct openintro.
 ## primerio data frame: 
 high_school_beyond <- hsb2 # atribuindo o df ao objeto. high_school_beyond  
-glimpse(high_school_beyond) # inspeciona df: nº linha x col, var e tipo dados.
-str(high_school_beyond) # inspeciona df: nº linha x col, var, tipo dado e levels.
+glimpse (high_school_beyond) # inspeciona df: nº linha x col, var e tipo dados.
+str (high_school_beyond) # inspeciona df: nº linha x col, var, tipo dado e levels.
 
 ## segundo data frame:
 email_50 <- email50
-glimpse(email_50)
-head(high_school_beyond,10) # inspeciona df: var, tipos de dado, 10 primeiras linhas.
+glimpse (email_50)
+head (high_school_beyond, 10) # inspeciona df: var, tipos de dado, 10 primeiras linhas.
 ```
 
 ### Tipos de Variáveis:
@@ -68,148 +68,147 @@ head(high_school_beyond,10) # inspeciona df: var, tipos de dado, 10 primeiras li
 ```{r}
 # Tipos de variáveis: df high_school_beyond
 ## Var. Quant. Discretas: read, write, math, science, socst.
-glimpse(high_school_beyond$read)
-summary(high_school_beyond$read)
+glimpse (high_school_beyond$read)
+summary (high_school_beyond$read)
 
-glimpse(high_school_beyond$write)
-summary(high_school_beyond$write)
+glimpse (high_school_beyond$write)
+summary (high_school_beyond$write)
 
-glimpse(high_school_beyond$math)
-summary(high_school_beyond$math)
+glimpse (high_school_beyond$math)
+summary (high_school_beyond$math)
 
-glimpse(high_school_beyond$science)
-summary(high_school_beyond$science)
+glimpse (high_school_beyond$science)
+summary (high_school_beyond$science)
 
-glimpse(high_school_beyond$socst)
-summary(high_school_beyond$socst)
+glimpse (high_school_beyond$socst)
+summary (high_school_beyond$socst)
 
 ## Var. Quant. Continuas: null
 
 ## Var. Quali. Ordinal: id
-glimpse(high_school_beyond$id)
+glimpse (high_school_beyond$id)
 
 high_school_beyond %>% 
-  select(id) %>%
-  arrange(desc(id)) # ordena o df conf. os valores de uma coluna.
+  select (id) %>%
+  arrange (desc(id)) # ordena o df conf. os valores de uma coluna.
 
 ## Var. Quali. Nominais: null
 
 #Var. Quali. Categóricas Nominal: gender, race, ses, schtyp, prog.  
-glimpse(high_school_beyond$gender)
-unique(high_school_beyond$gender) 
+glimpse (high_school_beyond$gender)
+unique (high_school_beyond$gender) 
 
-glimpse(high_school_beyond$race)
-unique(high_school_beyond$race)
+glimpse (high_school_beyond$race)
+unique (high_school_beyond$race)
 
-glimpse(high_school_beyond$ses)
-unique(high_school_beyond$ses)
+glimpse (high_school_beyond$ses)
+unique (high_school_beyond$ses)
 
-glimpse(high_school_beyond$schtyp)
+glimpse (high_school_beyond$schtyp)
 
-glimpse(high_school_beyond$prog)
-levels(high_school_beyond$prog)
-
+glimpse (high_school_beyond$prog)
+levels (high_school_beyond$prog)
 ```
 
 ```{r}
 # Tipos de variáveis: df email50
-glimpse(email_50)
+glimpse (email_50)
 
 ## var. Quant. Discretas: cc, image, attach, dollar, password, line_breaks, exclaim_mess.
-glimpse(email_50$cc) #Number of people cc'ed.
-summary(email_50$cc)
-unique(email_50$cc)
+glimpse (email_50$cc) #Number of people cc'ed.
+summary (email_50$cc)
+unique (email_50$cc)
 
-glimpse(email_50$image) #The number of images attached.
-summary(email_50$image)
-unique(email_50$image)
+glimpse (email_50$image) #The number of images attached.
+summary (email_50$image)
+unique (email_50$image)
 
-glimpse(email_50$attach)
-summary(email_50$attach)
-unique(email_50$attach)
+glimpse (email_50$attach)
+summary (email_50$attach)
+unique (email_50$attach)
 
-glimpse(email_50$dollar) #The number of times a dollar sign or the word “dollar” appeared in the email.
-summary(email_50$dollar)
-unique(email_50$dollar)
+glimpse (email_50$dollar) #The number of times a dollar sign or the word “dollar” appeared in the email.
+summary (email_50$dollar)
+unique (email_50$dollar)
 
-glimpse(email_50$password) #The number of times “password” appeared in the email.
-summary(email_50$password)
-unique(email_50$password)
+glimpse (email_50$password) #The number of times “password” appeared in the email.
+summary (email_50$password)
+unique (email_50$password)
 
-glimpse(email_50$line_breaks) #The number of line breaks in the email (does not count text wrapping).
-summary(email_50$line_breaks)
+glimpse (email_50$line_breaks) #The number of line breaks in the email (does not count text wrapping).
+summary (email_50$line_breaks)
 
-glimpse(email_50$exclaim_mess)
-summary(email_50$exclaim_mess)
+glimpse (email_50$exclaim_mess)
+summary (email_50$exclaim_mess)
 
 ## var. Quant. Continuas: num_char (in thousands)
-glimpse(email_50$num_char)
-summary(email_50$num_char)
+glimpse (email_50$num_char)
+summary (email_50$num_char)
 email_50$num_char # The number of characters in the email, in thousands.
 
 ##Var. Quali. Ordinais: time, number.
-glimpse(email_50$time)
+glimpse (email_50$time)
 
 ##Var. Quali. categorica Ordinal: number.
-glimpse(email_50$number) # Factor variable saying whether there was no number, a small number (under 1 million), or a big number.
-unique(email_50$number)
+glimpse (email_50$number) # Factor variable saying whether there was no number, a small number (under 1 million), or a big number.
+unique (email_50$number)
 
 ##Var. Quali. Nominais: null
 
 ##Var. Quali. Categorica Nominal: spam, to_multiple, from, sent_email, winner, inherit, viagra, format, re_subj, exclaim_subj e urgent_subj.
 
-glimpse(email_50$spam) #Indicator for whether the email was spam. "0" = não tem spam, "1" = Sim, tem spam. 
+glimpse (email_50$spam) #Indicator for whether the email was spam. "0" = não tem spam, "1" = Sim, tem spam. 
 
-glimpse(email_50$to_multiple) #Indicator for whether the email was addressed to more than one recipient.
+glimpse (email_50$to_multiple) #Indicator for whether the email was addressed to more than one recipient.
 
-glimpse(email_50$from) #Whether the message was listed as from anyone.
+glimpse (email_50$from) #Whether the message was listed as from anyone.
 
-glimpse(email_50$sent_email) #Indicator for whether the sender had been sent an email in the last 30 days.
+glimpse (email_50$sent_email) #Indicator for whether the sender had been sent an email in the last 30 days.
 
-glimpse(email_50$winner) #Indicates whether “winner” appeared in the email.
+glimpse (email_50$winner) #Indicates whether “winner” appeared in the email.
 
-glimpse(email_50$inherit) #The number of times “inherit” (or an extension, such as “inheritance”) appeared in the email.
-unique(email_50 $inherit)
+glimpse (email_50$inherit) #The number of times “inherit” (or an extension, such as “inheritance”) appeared in the email.
+unique (email_50 $inherit)
 
-glimpse(email_50$viagra) #The number of times “viagra” appeared in the email.
-unique(email_50$viagra)
+glimpse (email_50$viagra) #The number of times “viagra” appeared in the email.
+unique (email_50$viagra)
 
-glimpse(email_50$format) # Indicates whether the email was written using HTML (e.g. may have included bolding or active links). 
+glimpse (email_50$format) # Indicates whether the email was written using HTML (e.g. may have included bolding or active links). 
 
-glimpse(email_50$re_subj) # Whether the subject started with “Re:”, “RE:”, “re:”, or “rE:”.
+glimpse (email_50$re_subj) # Whether the subject started with “Re:”, “RE:”, “re:”, or “rE:”.
 
-glimpse(email_50$exclaim_subj) # Whether there was an exclamation point in the subject.
-unique(email_50$exclaim_subj)
+glimpse (email_50$exclaim_subj) # Whether there was an exclamation point in the subject.
+unique (email_50$exclaim_subj)
 
-glimpse(email_50$urgent_subj) # Whether the word “urgent” was in the email subject.
+glimpse (email_50$urgent_subj) # Whether the word “urgent” was in the email subject.
 ```
 
 ### Dados categóricos em R: *factors.*
 
 ```{r}
-# Contar.
+# Contar a quantidade de ocorrências.
 high_school_beyond %>%
   count(schtyp) 
-##ou 
+##ou  
 count(high_school_beyond, schtyp)
 
-# Somar:
-sum(3,4)
+# Somar valores:
+sum(3, 4)
 ##ou
 3 %>%
   sum(4)
 
 # Filtrar
 h_S_public <- high_school_beyond %>%
-  filter(schtyp == "public") # é igual (==); factor são caracteres.
+  filter (schtyp == "public") # é igual (==); factor são caracteres.
 h_S_public %>% 
-  count(schtyp)
+  count (schtyp)
 
-glimpse(email_50$number)
-unique(email_50$number)
+glimpse (email_50$number)
+unique (email_50$number)
 email50_big <- email_50 %>%
-  filter(number == "big")
-glimpse(email50_big)
+  filter (number == "big")
+glimpse (email50_big)
 ```
 
 ### Discretizar Variáveis:
@@ -218,23 +217,24 @@ Converter uma variável numérica em uma variável categórica.
 
 ```{r}
 # df high_school_beyond
-(avg_read <- mean(high_school_beyond$read)) # colocar entre () imprime o resultado atribuído à variável.
+(avg_read <- mean (high_school_beyond$read)) # colocar entre () imprime o resultado atribuído à variável.
 
 # discretizar variavel read.
 high_school_beyond %>% 
-  mutate(read_cat = if_else(read < avg_read, 
-        "reprovado", 
-        "aprovado"))
-
+  mutate (read_cat = if_else(read < avg_read, 
+         "reprovado", 
+         "aprovado")
+        )
 
 # discretizar variavel socst.
-(avg_socst <- round(mean(high_school_beyond$socst)))
+(avg_socst <- round (mean (high_school_beyond$socst)))
 
 high_school_beyond %>%
   mutate(socst_cat = case_when( #case_when = multiplos
     socst < avg_socst ~ "abaixo da media",
     socst == avg_socst ~ "media",
-    socst > avg_socst ~ "acima da media"))
+    socst > avg_socst ~ "acima da media")
+      )
 ```
 
 ```{r}

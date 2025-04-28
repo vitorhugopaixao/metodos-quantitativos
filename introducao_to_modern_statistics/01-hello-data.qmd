@@ -70,7 +70,6 @@ view (df_stend_30_365_join)
 # Renomear Variavel
 df_stend_30_365_join <- df_stend_30_365_join %>%
   rename (group = group.x, outcome.30 = outcome.x, outcome.365 = outcome.y)
-
 ```
 
 Amostragem Aleatória:
@@ -122,8 +121,18 @@ head (loan50,6) %>%
     total_income, # Renda total do mutuário, inclui segunda renda, em US$.
     homeownership # se a pessoa possui, mas tem uma hipoteca ou aluga.
     )
+```
 
-# Possivel pergunta envolvendo duas variáveis: qual o maior valor médio de empréstimos tomados dentre os estado? Existe uma relação entre a o limite de crédito liberado e a taxa de juros? 
+1.  Qual estado tomou o maior valor de empréstimos?
+
+```{r}
+str(loan50)
+
+loan50 %>% 
+  select(state, total_credit_utilized) %>% #seleciona as var estado e saldo de credito tonado.
+  group_by(state) %>% #agrupa por estado
+  arrange(desc(total_credit_utilized)) #ordena coluna ref creditos utilizados
+
 ```
 
 ### Data Frame: county.
@@ -144,9 +153,9 @@ county %>%
 
 2 - Perguntas:
 
-```{r}
-# Um valor maior do que a média na população do condado tende a corresponder a condados com rendas familiares media maiores ou menores?
+2.1 - Condados com populacao acima da media tem rendas familiares acima ou abaixo da media?
 
+```{r}
 glimpse (county)
 
 mean_pop_2017 <- mean (county$pop2017, na.rm = TRUE) # calculo da media.
@@ -157,19 +166,12 @@ county2 <- county %>%
   mutate (pop_relation_avg = if_else (pop2017 > mean_pop_2017, 
                                       "pop greater avg", 
                                       "pop less or equal to avg")) %>% 
-  mutate (income_avg = if_else (
-                     !is.na(median_hh_income) & median_hh_income > sum_mean_income,                      "higher avg income",
-                     "lower or equal avg income"
-                     )
-          ) %>%
-  group_by (pop_relation_avg, income_avg) %>%
-  summarise (sum_income = (sum(median_hh_income, na.rm = TRUE))) # cria coluna com soma de income.
+  mutate (income_avg = if_else (!is.na(median_hh_income) & median_hh_income > sum_mean_income, 
+                                "higher avg income", 
+                                "lower or equal avg income")) %>% 
+  group_by (pop_relation_avg) %>%
+  count(income_avg) %>%
+  mutate(percent_pop_income = n / sum(n))
 
-
-
-# Se a taxa de propriedade de imóveis residenciais for menor que a média nacional em um condado, a porcentagem de unidades habitacionais em estruturas multifamiliares nesse condado tenderá a ser maior ou menor da média nacional?
-
-
-
-# Em que medida o nível médio de educação pode explicar a renda familiar média de condados nos EUA?
+# Resposta: 72,71% dos condados com população acima da média possuem renda média acima da média dos condados. Já entre os condados com população abaixo da média, a renda só é superior a média em 37,5% dos condados. 
 ```
