@@ -142,7 +142,7 @@ loan50 %>%
     summary(loan50$total_credit_limit)
 
     ggplot(data = loan50, 
-           mapping = aes(x = total_credit_limit, y = interest_rate)) +
+          mapping = aes(x = total_credit_limit, y = interest_rate)) +
       geom_point()
 
     # Conforme gráfico, nao existe relacao entre o limite do empréstimo e a tx de juros. Independente do limite, as tx cobradas, em sua maioria, sao inferiores a 12,75%.
@@ -173,18 +173,15 @@ glimpse (county)
 
 mean_pop_2017 <- mean (county$pop2017, na.rm = TRUE) # calculo da media.
 
-sum_mean_income <- mean (county$median_hh_income, na.rm = TRUE)
+mean_hh_income <- mean (county$median_hh_income, na.rm = TRUE) # calculo da media.
 
-county2 <- county %>%
-  mutate (pop_relation_avg = if_else (pop2017 > mean_pop_2017, 
-                                      "pop greater avg", 
-                                      "pop less or equal to avg")) %>% 
-  mutate (income_avg = if_else (!is.na(median_hh_income) & median_hh_income > sum_mean_income, 
-                                "higher avg income", 
-                                "lower or equal avg income")) %>% 
+county_pop_income <- county %>% 
+  mutate (pop_relation_avg = if_else (!is.na(pop2017) & pop2017 > mean_pop_2017, "pop greater avg", "pop less or equal to avg")) %>% 
+  mutate (income_avg = if_else (!is.na(median_hh_income) & median_hh_income > mean_hh_income, "higher avg income", "lower or equal avg income")) %>% 
   group_by (pop_relation_avg) %>%
   count(income_avg) %>%
-  mutate(percent_pop_income = n / sum(n))
+  mutate(percent_pop_income = n / sum(n)) %>%
+  rename(soma = n)
 
-# Resposta: 72,71% dos condados com população acima da média possuem renda média acima da média dos condados. Já entre os condados com população abaixo da média, a renda só é superior a média em 37,5% dos condados. 
+# Resposta: 72,71% dos condados com população acima da média possuem renda acima da média dos condados.
 ```
