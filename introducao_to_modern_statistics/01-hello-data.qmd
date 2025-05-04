@@ -185,3 +185,24 @@ county_pop_income <- county %>%
 
 # Resposta: 72,71% dos condados com população acima da média possuem renda acima da média dos condados.
 ```
+
+2.2 - Se a taxa de propriedade de imóveis residenciais for menor que a média nacional em um condado, a porcentagem de unidades habitacionais em estruturas multifamiliares nesse condado tenderá a ser superior ou inferior à média nacional?
+
+```{r}
+str (county)
+unique (county$state)
+
+mean_homeownership <- mean (county$homeownership) #media tx propriedade de imoveis.
+
+mean_multi_unit <- mean (county$multi_unit) #media unidade habita multi-familia.
+
+xis <- county %>% 
+  mutate (homeownership_nat_avg = if_else(homeownership < mean_homeownership, "lower avg", "equal or higher avg")) %>%
+  mutate (multi_unit_avg = if_else(multi_unit < mean_multi_unit, "below average", "above average")) %>%
+  filter (homeownership_nat_avg == "lower avg") %>%
+  select (homeownership_nat_avg, multi_unit_avg) %>%
+  group_by (homeownership_nat_avg) %>%
+  count(multi_unit_avg) %>%
+  rename(total = n) %>%
+  mutate(percent = total / sum(total))
+```
