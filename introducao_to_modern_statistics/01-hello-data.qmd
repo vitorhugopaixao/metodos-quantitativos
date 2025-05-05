@@ -206,3 +206,15 @@ xis <- county %>%
   rename(total = n) %>%
   mutate(percent = total / sum(total))
 ```
+
+2.3 - Em que medida o nível médio de educação pode explicar a renda familiar média dos condados dos EUA?
+
+```{r}
+glimpse(county)
+
+ggplot(data = county, 
+       mapping = aes(median_edu, 
+                     median_hh_income)) + # renda familiar média
+  geom_boxplot()
+
+```
