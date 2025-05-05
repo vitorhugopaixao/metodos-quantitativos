@@ -218,3 +218,11 @@ ggplot(data = county,
   geom_boxplot()
 
 ```
+
+2.4 - Examinar a relação entre a variação percentual da população de 2010 a 2017 e a renda familiar mediana dos condados, visualizada como um gráfico de dispersão. Essas variáveis ​​estão associadas?
+
+```{r}
+ggplot(data = county, 
+       mapping = aes(x = median_hh_income, y = pop_change)) +
+  geom_point()
+```
