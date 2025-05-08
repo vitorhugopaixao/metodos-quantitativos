@@ -132,7 +132,6 @@ loan50 %>%
   select(state, total_credit_utilized) %>% #seleciona as var estado e saldo de credito tonado.
   group_by(state) %>% #agrupa por estado
   arrange(desc(total_credit_utilized)) #ordena coluna ref creditos utilizados
-
 ```
 
 2.  Existe uma relação entre a o limite de crédito liberado e a taxa de juros?
@@ -145,7 +144,7 @@ loan50 %>%
           mapping = aes(x = total_credit_limit, y = interest_rate)) +
       geom_point()
 
-    # Conforme gráfico, nao existe relacao entre o limite do empréstimo e a tx de juros. Independente do limite, as tx cobradas, em sua maioria, sao inferiores a 12,75%.
+    # Conforme gráfico, nao é possível estabelecer relacao entre o limite do empréstimo e a tx de juros. Independente do limite, as tx cobradas, em sua maioria, sao inferiores a 12,75%.
     ```
 
 ### Data Frame: county.
