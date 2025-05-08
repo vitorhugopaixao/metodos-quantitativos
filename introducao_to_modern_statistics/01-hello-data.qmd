@@ -216,7 +216,6 @@ ggplot(data = county,
        mapping = aes(median_edu, 
                      median_hh_income)) + # renda familiar média
   geom_boxplot()
-
 ```
 
 2.4 - Examinar a relação entre a variação percentual da população de 2010 a 2017 e a renda familiar mediana dos condados, visualizada como um gráfico de dispersão. Essas variáveis ​​estão associadas?
@@ -225,4 +224,19 @@ ggplot(data = county,
 ggplot(data = county, 
        mapping = aes(x = median_hh_income, y = pop_change)) +
   geom_point()
+```
+
+Resolucao Exercicios:
+
+1.1. Marvel Cinematic Universe films. The data frame below contains information on Marvel Cinematic Universe films through the Infinity saga (a movie storyline spanning from Ironman in 2008 to Endgame in 2019). Box office totals are given in millions of US Dollars. How many observations and how many variables does this data frame have?
+
+```{r}
+glimpse(mcu_films)
+# or
+nrow(mcu_films) # nº observations
+ncol(mcu_films) # nº variables
+# or
+dim(mcu_films) # rown colums
+# rowns: 23 
+# columns: 7
 ```
