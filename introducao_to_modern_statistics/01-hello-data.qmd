@@ -267,7 +267,9 @@ acupuncture <- data.frame (
 
 # 1.3.1 - percentual de "pain free" nos grupos de tratamento e controle.
 acupuncture %>%
-mutate (percent_yp = yes_pain / sum(yes_pain), 
-        percent_np = no_pain / sum(no_pain)) %>% 
-relocate(percent_yp, .after = yes_pain)
+  mutate(group_sum = yes_pain + no_pain) %>% 
+  mutate(yp_perc = yes_pain/group_sum, 
+         np_perc = no_pain/group_sum) %>%
+  relocate(yp_perc, .after = yes_pain) %>%
+  relocate(np_perc, .after = no_pain)
 ```
