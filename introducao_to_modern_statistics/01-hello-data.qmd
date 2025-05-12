@@ -230,7 +230,7 @@ ggplot(data = county,
 
 Resolucao Exercicios:
 
-1.1. Marvel Cinematic Universe films. The data frame below contains information on Marvel Cinematic Universe films through the Infinity saga (a movie storyline spanning from Ironman in 2008 to Endgame in 2019). Box office totals are given in millions of US Dollars. How many observations and how many variables does this data frame have?
+1.1. How many observations and how many variables does this data frame have?
 
 ```{r}
 glimpse(mcu_films)
@@ -272,4 +272,23 @@ acupuncture %>%
          np_perc = no_pain/group_sum) %>%
   relocate(yp_perc, .after = yes_pain) %>%
   relocate(np_perc, .after = no_pain)
+```
+
+1.4 - Sinusite e antibióticos.
+
+```{r}
+# cria data frame
+sinusitis <- data.frame(
+  group = c("control", "tratament"),
+  yes_improvement = c(65,66),
+  no_improvement = c(16,19)
+)
+
+# % de pacientes no grupo de tratamento com melhora dos sintomas?
+
+# % de pacientes com melhora dos sintomas no grupo controle?
+
+# Qual grupo uma porcentagem maior de pacientes apresentou melhora dos sintomas?
+
+# Podemos sugerir uma diferença real na eficácia dos tratamentos com antibióticos e placebos para a melhora dos sintomas de sinusite. Qual é outra possível explicação para a diferença observada entre % pacientes que apresentaram melhora dos sintomas?
 ```
