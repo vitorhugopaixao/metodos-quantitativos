@@ -284,11 +284,14 @@ sinusitis <- data.frame(
   no_improvement = c(16,19)
 )
 
-# % de pacientes no grupo de tratamento com melhora dos sintomas?
-
-# % de pacientes com melhora dos sintomas no grupo controle?
-
 # Qual grupo uma porcentagem maior de pacientes apresentou melhora dos sintomas?
+# % de pacientes no grupo de tratamento e no grupo controle com melhora dos sintomas ?
+sinusitis %>% 
+  mutate (total = yes_improvement + no_improvement) %>%
+  mutate (yi_perc = yes_improvement/total,
+          ni_perc = no_improvement/total) %>%
+  relocate(yi_perc, .after = yes_improvement) %>%
+  relocate(ni_perc, .after = no_improvement)
 
-# Podemos sugerir uma diferença real na eficácia dos tratamentos com antibióticos e placebos para a melhora dos sintomas de sinusite. Qual é outra possível explicação para a diferença observada entre % pacientes que apresentaram melhora dos sintomas?
+# Com base apenas nas porcentagens brutas, não é possível afirmar com segurança que há uma diferença real na eficácia dos tratamentos. A diferença observada entre os grupos (cerca de 2,6 pontos percentuais) é pequena. Outros testes, que fogem ao escopo de aprendizado, seriam necessário para avaliar se a diferença é significativa.
 ```
